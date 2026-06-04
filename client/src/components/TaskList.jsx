@@ -1,7 +1,11 @@
 import EmptyState from "./EmptyState";
 import TaskCard from "./TaskCard";
 
-function TaskList({ tasks }) {
+function TaskList({
+  tasks,
+  onToggleTask,
+  onDeleteTask,
+}) {
   if (tasks.length === 0) {
     return <EmptyState />;
   }
@@ -12,6 +16,8 @@ function TaskList({ tasks }) {
         <TaskCard
           key={task.id}
           task={task}
+          onToggleTask={onToggleTask}
+          onDeleteTask={onDeleteTask}
         />
       ))}
     </div>

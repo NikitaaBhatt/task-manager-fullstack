@@ -8,6 +8,8 @@ import StatsBar from "../components/StatsBar";
 import {
   fetchTasks,
   createTask,
+  toggleTask,
+  deleteTask,
 } from "../services/taskService";
 
 function HomePage() {
@@ -35,6 +37,24 @@ function HomePage() {
     }
   };
 
+const handleToggleTask = async (id) => {
+  try {
+    await toggleTask(id);
+    loadTasks();
+  } catch (error) {
+    console.error("Failed to toggle task");
+  }
+};
+
+const handleDeleteTask = async (id) => {
+  try {
+    await deleteTask(id);
+    loadTasks();
+  } catch (error) {
+    console.error("Failed to delete task");
+  }
+};
+
   return (
     <div className="min-h-screen bg-slate-100">
       <div className="max-w-5xl mx-auto px-4 py-8">
@@ -44,7 +64,11 @@ function HomePage() {
 
         <TaskForm onCreateTask={handleCreateTask} />
 
-        <TaskList tasks={tasks} />
+        <TaskList
+          tasks={tasks}
+          onToggleTask={handleToggleTask}
+          onDeleteTask={handleDeleteTask}
+        />
       </div>
     </div>
   );

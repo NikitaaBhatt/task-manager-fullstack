@@ -1,4 +1,4 @@
-function TaskCard({ task }) {
+function TaskCard({ task, onToggleTask, onDeleteTask }) {
   const priorityColors = {
     low: "bg-green-100 text-green-700",
     medium: "bg-yellow-100 text-yellow-700",
@@ -11,18 +11,14 @@ function TaskCard({ task }) {
         <div>
           <h3
             className={`text-xl font-semibold ${
-              task.completed
-                ? "line-through text-slate-400"
-                : "text-slate-800"
+              task.completed ? "line-through text-slate-400" : "text-slate-800"
             }`}
           >
             {task.title}
           </h3>
 
           {task.description && (
-            <p className="text-slate-500 mt-2">
-              {task.description}
-            </p>
+            <p className="text-slate-500 mt-2">{task.description}</p>
           )}
         </div>
 
@@ -38,18 +34,34 @@ function TaskCard({ task }) {
       <div className="flex items-center justify-between mt-5">
         <div>
           {task.dueDate && (
-            <p className="text-sm text-slate-500">
-              Due: {task.dueDate}
-            </p>
+            <p className="text-sm text-slate-500">Due: {task.dueDate}</p>
           )}
         </div>
 
         <div className="flex gap-2">
-          <button className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white transition">
+          <button
+            onClick={() => onToggleTask(task.id)}
+            className={`px-4 py-2 rounded-lg text-white transition ${
+              task.completed
+                ? "bg-slate-500 hover:bg-slate-600"
+                : "bg-green-600 hover:bg-green-700"
+            }`}
+          >
             {task.completed ? "Completed" : "Complete"}
           </button>
 
-          <button className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition">
+          <button
+            onClick={() => {
+              const confirmed = window.confirm(
+                "Are you sure you want to delete this task?",
+              );
+
+              if (confirmed) {
+                onDeleteTask(task.id);
+              }
+            }}
+            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition"
+          >
             Delete
           </button>
         </div>

@@ -5,17 +5,8 @@
     "description": "I ahve to wake up early in the morning.",
     "dueDate": "2026-06-05",
     "priority": "medium",
-    "completed": false,
+    "completed": true,
     "createdAt": "2026-06-04T13:41:43.873Z"
-  },
-  {
-    "id": "76f4352d-d6eb-4588-8c94-b2a2d530bf84",
-    "title": "Breakfast",
-    "description": "Do Breakfast",
-    "dueDate": "2026-06-05",
-    "priority": "low",
-    "completed": false,
-    "createdAt": "2026-06-04T13:42:19.236Z"
   },
   {
     "id": "8e4b7600-ce85-4a3c-9413-89c9fe761d19",
@@ -25,14 +16,5 @@
     "priority": "high",
     "completed": false,
     "createdAt": "2026-06-04T13:42:57.673Z"
-  },
-  {
-    "id": "9da1925f-f6c6-410f-bf38-00d238e68e78",
-    "title": "Read",
-    "description": "",
-    "dueDate": null,
-    "priority": "medium",
-    "completed": false,
-    "createdAt": "2026-06-04T13:47:33.975Z"
   }
 ]
