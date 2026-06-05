@@ -5,6 +5,7 @@ import TaskForm from "../components/TaskForm";
 import TaskList from "../components/TaskList";
 import StatsBar from "../components/StatsBar";
 import FilterBar from "../components/FilterBar";
+import toast from "react-hot-toast";
 
 import {
   fetchTasks,
@@ -16,6 +17,8 @@ import {
 
 function HomePage() {
   const [tasks, setTasks] = useState([]);
+
+  const [recentlyCompletedId, setRecentlyCompletedId] = useState(null);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -42,6 +45,7 @@ function HomePage() {
   const handleCreateTask = async (taskData) => {
     try {
       await createTask(taskData);
+      toast.success("Task created successfully");
       loadTasks();
     } catch (error) {
       console.error("Failed to create task");
@@ -52,6 +56,7 @@ function HomePage() {
   const handleUpdateTask = async (id, updatedData) => {
     try {
       await updateTask(id, updatedData);
+      toast.success("Task updated successfully");
 
       setEditingTask(null);
 
@@ -64,8 +69,31 @@ function HomePage() {
 
 const handleToggleTask = async (id) => {
   try {
-    await toggleTask(id);
-    loadTasks();
+    const task = tasks.find(
+      (task) => task.id === id
+    );
+
+    if (!task.completed) {
+      setRecentlyCompletedId(id);
+
+      await toggleTask(id);
+
+      toast.success("Task completed");
+
+      setTimeout(() => {
+        loadTasks();
+
+        setRecentlyCompletedId(null);
+      }, 300);
+    }
+
+    else {
+      await toggleTask(id);
+
+      toast.success("Task marked incomplete");
+
+      loadTasks();
+    }
   } catch (error) {
     console.error("Failed to toggle task");
   }
@@ -74,6 +102,7 @@ const handleToggleTask = async (id) => {
 const handleDeleteTask = async (id) => {
   try {
     await deleteTask(id);
+    toast.success("Task deleted successfully");
     loadTasks();
   } catch (error) {
     console.error("Failed to delete task");
@@ -108,8 +137,28 @@ const filteredTasks = tasks.filter((task) => {
   );
 });
 
+const sortedTasks = [...filteredTasks].sort(
+  (a, b) => {
+    if (
+      a.id === recentlyCompletedId ||
+      b.id === recentlyCompletedId
+    ) {
+      return 0;
+    }
+
+    if (a.completed !== b.completed) {
+      return a.completed - b.completed;
+    }
+
+    return (
+      new Date(b.createdAt || 0) -
+      new Date(a.createdAt || 0)
+    );
+  }
+);
+
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-blue-100">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <Header />
 
@@ -131,7 +180,7 @@ const filteredTasks = tasks.filter((task) => {
         />
 
         <TaskList
-          tasks={filteredTasks}
+          tasks={sortedTasks}
           onToggleTask={handleToggleTask}
           onDeleteTask={handleDeleteTask}
           setEditingTask={setEditingTask}

@@ -25,5 +25,14 @@
     "priority": "high",
     "completed": false,
     "createdAt": "2026-06-04T14:33:12.121Z"
+  },
+  {
+    "id": "b3f1d253-4d03-40f7-9c93-314399f52cab",
+    "title": "cooking",
+    "description": "cook my meal today",
+    "dueDate": "2026-06-02",
+    "priority": "medium",
+    "completed": true,
+    "createdAt": "2026-06-05T05:58:06.668Z"
   }
 ]

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 function TaskForm({ onCreateTask, editingTask, onUpdateTask, }) {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ function TaskForm({ onCreateTask, editingTask, onUpdateTask, }) {
     priority: "medium",
   });
 
+  const formRef = useRef(null);
+
   useEffect(() => {
     if (editingTask) {
       setFormData({
@@ -15,6 +18,11 @@ function TaskForm({ onCreateTask, editingTask, onUpdateTask, }) {
         description: editingTask.description,
         dueDate: editingTask.dueDate || "",
         priority: editingTask.priority,
+      });
+
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     }
   }, [editingTask]);
@@ -30,6 +38,7 @@ function TaskForm({ onCreateTask, editingTask, onUpdateTask, }) {
     event.preventDefault();
 
     if (!formData.title.trim()) {
+      toast.error("Task title is required");
       return;
     }
 
@@ -48,20 +57,26 @@ function TaskForm({ onCreateTask, editingTask, onUpdateTask, }) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+    <div ref={formRef} className="bg-white rounded-xl shadow-sm p-6 mb-6">
       <h2 className="text-xl font-semibold text-slate-800 mb-4">
         Add New Task
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Task title"
-          value={formData.title}
-          onChange={handleChange}
-          className="w-full border border-slate-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Task Title <span className="text-red-500">*</span>
+          </label>
+
+          <input
+            type="text"
+            name="title"
+            placeholder="Task title"
+            value={formData.title}
+            onChange={handleChange}
+            className="w-full border border-slate-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
         <textarea
           name="description"
