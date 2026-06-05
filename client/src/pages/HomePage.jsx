@@ -137,25 +137,20 @@ const filteredTasks = tasks.filter((task) => {
   );
 });
 
-const sortedTasks = [...filteredTasks].sort(
-  (a, b) => {
-    if (
-      a.id === recentlyCompletedId ||
-      b.id === recentlyCompletedId
-    ) {
-      return 0;
-    }
-
-    if (a.completed !== b.completed) {
-      return a.completed - b.completed;
-    }
-
-    return (
-      new Date(b.createdAt || 0) -
-      new Date(a.createdAt || 0)
-    );
+const sortedTasks = [...filteredTasks].sort((a, b) => {
+  if (
+    a.id === recentlyCompletedId ||
+    b.id === recentlyCompletedId
+  ) {
+    return 0;
   }
-);
+
+  if (a.completed !== b.completed) {
+    return a.completed ? 1 : -1;
+  }
+
+  return 0;
+});
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-blue-100">

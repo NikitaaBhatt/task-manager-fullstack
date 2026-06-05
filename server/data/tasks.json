@@ -14,7 +14,7 @@
     "description": "Should study atleast for 3 hours",
     "dueDate": "2026-06-12",
     "priority": "medium",
-    "completed": false,
+    "completed": true,
     "createdAt": "2026-06-04T13:42:57.673Z"
   },
   {
@@ -23,7 +23,7 @@
     "description": "i should wake up early",
     "dueDate": "2026-06-08",
     "priority": "high",
-    "completed": false,
+    "completed": true,
     "createdAt": "2026-06-04T14:33:12.121Z"
   },
   {
@@ -32,7 +32,7 @@
     "description": "cook my meal today",
     "dueDate": "2026-06-02",
     "priority": "medium",
-    "completed": true,
+    "completed": false,
     "createdAt": "2026-06-05T05:58:06.668Z"
   }
 ]
