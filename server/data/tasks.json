@@ -2,7 +2,7 @@
   {
     "id": "3db331f8-bc49-49ca-8374-25d09ed186ae",
     "title": "Wake up early",
-    "description": "I ahve to wake up early in the morning.",
+    "description": "I have to wake up early in the morning.",
     "dueDate": "2026-06-05",
     "priority": "medium",
     "completed": true,
@@ -12,8 +12,8 @@
     "id": "8e4b7600-ce85-4a3c-9413-89c9fe761d19",
     "title": "Studying",
     "description": "Should study atleast for 3 hours",
-    "dueDate": "2026-06-05",
-    "priority": "high",
+    "dueDate": "2026-06-12",
+    "priority": "medium",
     "completed": false,
     "createdAt": "2026-06-04T13:42:57.673Z"
   },
@@ -21,8 +21,8 @@
     "id": "26cb9a4e-c538-4f0c-925d-4ed75cd5e6b7",
     "title": "waking early",
     "description": "i should wake up early",
-    "dueDate": null,
-    "priority": "medium",
+    "dueDate": "2026-06-08",
+    "priority": "high",
     "completed": false,
     "createdAt": "2026-06-04T14:33:12.121Z"
   }

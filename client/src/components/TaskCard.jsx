@@ -1,4 +1,4 @@
-function TaskCard({ task, onToggleTask, onDeleteTask }) {
+function TaskCard({ task, onToggleTask, onDeleteTask, setEditingTask, }) {
   const priorityColors = {
     low: "bg-green-100 text-green-700",
     medium: "bg-yellow-100 text-yellow-700",
@@ -47,7 +47,14 @@ function TaskCard({ task, onToggleTask, onDeleteTask }) {
                 : "bg-green-600 hover:bg-green-700"
             }`}
           >
-            {task.completed ? "Completed" : "Complete"}
+            {task.completed ? "Mark Incomplete" : "Mark Complete"}
+          </button>
+
+          <button
+            onClick={() => setEditingTask(task)}
+            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition"
+          >
+            Edit
           </button>
 
           <button

@@ -9,6 +9,7 @@ import FilterBar from "../components/FilterBar";
 import {
   fetchTasks,
   createTask,
+  updateTask,
   toggleTask,
   deleteTask,
 } from "../services/taskService";
@@ -21,6 +22,9 @@ function HomePage() {
   const [statusFilter, setStatusFilter] = useState("all");
 
   const [priorityFilter, setPriorityFilter] = useState("all");
+
+  const [editingTask, setEditingTask] =
+  useState(null);
 
   const loadTasks = async () => {
     try {
@@ -43,6 +47,20 @@ function HomePage() {
       console.error("Failed to create task");
     }
   };
+
+
+  const handleUpdateTask = async (id, updatedData) => {
+    try {
+      await updateTask(id, updatedData);
+
+      setEditingTask(null);
+
+      loadTasks();
+    } catch (error) {
+      console.error("Failed to update task");
+    }
+  };
+
 
 const handleToggleTask = async (id) => {
   try {
@@ -106,12 +124,17 @@ const filteredTasks = tasks.filter((task) => {
           setPriorityFilter={setPriorityFilter}
         />
 
-        <TaskForm onCreateTask={handleCreateTask} />
+        <TaskForm
+          onCreateTask={handleCreateTask}
+          editingTask={editingTask}
+          onUpdateTask={handleUpdateTask}
+        />
 
         <TaskList
           tasks={filteredTasks}
           onToggleTask={handleToggleTask}
           onDeleteTask={handleDeleteTask}
+          setEditingTask={setEditingTask}
         />
       </div>
     </div>

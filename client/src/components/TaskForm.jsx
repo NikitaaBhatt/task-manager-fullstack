@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function TaskForm({ onCreateTask }) {
+function TaskForm({ onCreateTask, editingTask, onUpdateTask, }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     dueDate: "",
     priority: "medium",
   });
+
+  useEffect(() => {
+    if (editingTask) {
+      setFormData({
+        title: editingTask.title,
+        description: editingTask.description,
+        dueDate: editingTask.dueDate || "",
+        priority: editingTask.priority,
+      });
+    }
+  }, [editingTask]);
 
   const handleChange = (event) => {
     setFormData({
@@ -22,7 +33,11 @@ function TaskForm({ onCreateTask }) {
       return;
     }
 
-    await onCreateTask(formData);
+    if (editingTask) {
+      await onUpdateTask(editingTask.id, formData);
+    } else {
+      await onCreateTask(formData);
+    }
 
     setFormData({
       title: "",
@@ -38,10 +53,7 @@ function TaskForm({ onCreateTask }) {
         Add New Task
       </h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           name="title"
@@ -81,12 +93,24 @@ function TaskForm({ onCreateTask }) {
           </select>
         </div>
 
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-3 rounded-lg font-medium"
-        >
-          Add Task
-        </button>
+        <div className="flex items-center">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-3 rounded-lg font-medium"
+          >
+            {editingTask ? "Update Task" : "Add Task"}
+          </button>
+
+          {editingTask && (
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="ml-3 bg-slate-400 hover:bg-slate-500 transition text-white px-6 py-3 rounded-lg font-medium"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

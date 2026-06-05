@@ -5,6 +5,7 @@ function TaskList({
   tasks,
   onToggleTask,
   onDeleteTask,
+  setEditingTask,
 }) {
   if (tasks.length === 0) {
     return <EmptyState />;
@@ -18,6 +19,7 @@ function TaskList({
           task={task}
           onToggleTask={onToggleTask}
           onDeleteTask={onDeleteTask}
+          setEditingTask={setEditingTask}
         />
       ))}
     </div>
