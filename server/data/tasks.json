@@ -16,5 +16,14 @@
     "priority": "high",
     "completed": false,
     "createdAt": "2026-06-04T13:42:57.673Z"
+  },
+  {
+    "id": "26cb9a4e-c538-4f0c-925d-4ed75cd5e6b7",
+    "title": "waking early",
+    "description": "i should wake up early",
+    "dueDate": null,
+    "priority": "medium",
+    "completed": false,
+    "createdAt": "2026-06-04T14:33:12.121Z"
   }
 ]
