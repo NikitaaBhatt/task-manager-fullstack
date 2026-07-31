@@ -27,8 +27,7 @@ function Header() {
 
       <div className="bg-blue-600 text-white px-5 py-3 rounded-xl shadow-sm">
         <p className="text-sm opacity-90">Full-Stack Task Manager</p>
-
-        <p className="font-semibold mt-1">Studio Graphene Assignment</p>
+        
       </div>
     </div>
   );
